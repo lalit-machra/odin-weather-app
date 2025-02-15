@@ -1,0 +1,38 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+h1 {
+  text-align: center;
+  color: navy;
+  margin-bottom: 40px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
+  gap: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px;
+  background-color: lightblue;
+  font-size: 18px;
+}
+
+input.place {
+  height: 25px;
+  width: 160px;
+  border: none;
+  outline: none;
+}
+
+.submitBtn {
+  width: 95px;
+  height: 20px;
+  border: 1px solid gray;
+  border-radius: 4px;
+}
