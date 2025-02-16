@@ -11,8 +11,13 @@
   <body>
     <h1>Weather App</h1>
     <form>
-      <input class="place" placeholder="Place" autocomplete="off">
-      <button type="submit" class="submitBtn">Get Weather</button>
+      <input class="place" placeholder="Place" autocomplete="off" required>
+      <button type="button" class="submitBtn">Get Weather</button>
     </form>
+    <div class="result">
+      <p>Temperature: <span class="temperature"></span></p>
+      <p>Conditions: <span class="conditions"></span></p>
+    </div>
+    
   </body>
 </html>
