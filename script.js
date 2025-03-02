@@ -5,10 +5,10 @@ const tempSpan = document.querySelector(".temperature");
 const conditionSpan = document.querySelector(".conditions");
 const celsiusUnit = document.querySelector("#celsius");
 const fahrenheitUnit = document.querySelector("#fahrenheit");
+const error = document.querySelector(".error");
 let place, weather;
 
 async function getWeather(location) {
-  console.log("getting weather....");
   try {
     const weatherData = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/`+
       `rest/services/timeline/${location}%2C%20India?unitGroup=metric&key=4RLZKJNKPEC4UXGU6Z46Q683C`+
@@ -18,11 +18,10 @@ async function getWeather(location) {
     } else {
       const weatherDataJSON = await weatherData.json();
       const currConditions = weatherDataJSON.currentConditions;
-      console.log(currConditions);
       return currConditions;
     }
   } catch(error) {
-    console.log(`Oops ${error}`);
+    error.innerText = error;
     return null;
   }
 }
@@ -31,6 +30,7 @@ submitBtn.addEventListener("click", async () => {
   if (input.value) {
     tempSpan.innerText = '';
     conditionSpan.innerText = '';
+    error.innerText = '';
     place = input.value;
     weather = await getWeather(place);
     if (weather != null) {
@@ -40,10 +40,10 @@ submitBtn.addEventListener("click", async () => {
       displayTemperature(weather["temp"]);
       conditionSpan.innerText = `${weather["conditions"]}`;
     } else {
-      console.log("Failed to fetch weather");
+      error.innerText = 'Error: Could not fetch weather';
     }
   } else {
-    throw new Error("Please enter a place to continue");
+    error.innerText = 'Error: Please select a location';
   }
 });
 
