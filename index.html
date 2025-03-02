@@ -15,6 +15,12 @@
       <button type="button" class="submitBtn">Get Weather</button>
     </form>
     <div class="result">
+      <div class="tempUnits">
+        <input type="radio" value="C" class="celsius" id="celsius" name="temperature" checked>
+        <label for="celsius">°C</label>
+        <input type="radio" value="F" class="fahrenheit" id="fahrenheit" name="temperature">
+        <label for="fahrenheit">°F</label>
+      </div>
       <p>Temperature: <span class="temperature"></span></p>
       <p>Conditions: <span class="conditions"></span></p>
     </div>
