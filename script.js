@@ -23,6 +23,7 @@ async function getWeather(location) {
     }
   } catch(error) {
     error.innerText = error;
+    loader.classList.remove("loader-visible");
     return null;
   }
 }
@@ -44,6 +45,7 @@ submitBtn.addEventListener("click", async () => {
       conditionSpan.innerText = `${weather["conditions"]}`;
     } else {
       error.innerText = 'Error: Could not fetch weather';
+      loader.classList.remove("loader-visible");
     }
   } else {
     error.innerText = 'Error: Please select a location';
