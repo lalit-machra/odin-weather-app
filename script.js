@@ -6,6 +6,7 @@ const conditionSpan = document.querySelector(".conditions");
 const celsiusUnit = document.querySelector("#celsius");
 const fahrenheitUnit = document.querySelector("#fahrenheit");
 const error = document.querySelector(".error");
+const loader = document.querySelector(".loader");
 let place, weather;
 
 async function getWeather(location) {
@@ -31,12 +32,14 @@ submitBtn.addEventListener("click", async () => {
     tempSpan.innerText = '';
     conditionSpan.innerText = '';
     error.innerText = '';
+    loader.classList.add("loader-visible");
     place = input.value;
     weather = await getWeather(place);
     if (weather != null) {
       if (fahrenheitUnit.checked) {
         weather["temp"] = CtoF(weather["temp"]);
       }
+      loader.classList.remove("loader-visible");
       displayTemperature(weather["temp"]);
       conditionSpan.innerText = `${weather["conditions"]}`;
     } else {

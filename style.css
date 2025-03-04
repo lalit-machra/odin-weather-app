@@ -47,6 +47,31 @@ input.place {
   padding: 10px;
 }
 
+.tempUnits {
+  display: inline-block;
+}
+
+.loader {
+  height: 24px;
+  width: 24px;
+  margin-left: 60px;
+  position: absolute;
+  border: 2px solid black;
+  border-radius: 50%;
+  border-top: 2px solid white;
+  animation: spin 1s linear infinite;
+  visibility: hidden;
+}
+
+.loader-visible {
+  visibility: visible;
+}
+
+@keyframes spin {
+  0%  { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 .error {
   color: red;
   font-size: 16px;
