@@ -7,6 +7,7 @@ const celsiusUnit = document.querySelector("#celsius");
 const fahrenheitUnit = document.querySelector("#fahrenheit");
 const error = document.querySelector(".error");
 const loader = document.querySelector(".loader");
+const weatherGif = document.querySelector(".weatherGif");
 let place, weather;
 
 async function getWeather(location) {
@@ -17,8 +18,8 @@ async function getWeather(location) {
     if (weatherData.status != 200) {
       throw new Error(`${weatherData.status}`);
     } else {
-      const weatherDataJSON = await weatherData.json();
-      const currConditions = weatherDataJSON.currentConditions;
+      let weatherDataJSON = await weatherData.json();
+      let currConditions = weatherDataJSON.currentConditions;
       return currConditions;
     }
   } catch(error) {
@@ -28,11 +29,28 @@ async function getWeather(location) {
   }
 }
 
+async function displayWeatherGif(weatherIcon) {
+  try {
+    let gif = await fetch(`https://api.giphy.com/v1/gifs/translate?api_key=DwT8OKF3PCxkYVSVQMJiklEDlnzbEx08&s=${weatherIcon}%20weather`, {mode: 'cors'});
+    if (!gif.ok) {
+      throw new Error("Couldn't load gif");
+    } else {
+      let gifJson = await gif.json();
+      let imgSrc = gifJson.data.images.original.url;
+      weatherGif.src = imgSrc;
+      return;
+    }
+  } catch {
+    return;
+  }
+}
+
 submitBtn.addEventListener("click", async () => {
   if (input.value) {
     tempSpan.innerText = '';
     conditionSpan.innerText = '';
     error.innerText = '';
+    weatherGif.src = '';
     loader.classList.add("loader-visible");
     place = input.value;
     weather = await getWeather(place);
@@ -40,9 +58,10 @@ submitBtn.addEventListener("click", async () => {
       if (fahrenheitUnit.checked) {
         weather["temp"] = CtoF(weather["temp"]);
       }
-      loader.classList.remove("loader-visible");
+      await displayWeatherGif(weather["icon"]);
       displayTemperature(weather["temp"]);
       conditionSpan.innerText = `${weather["conditions"]}`;
+      loader.classList.remove("loader-visible");
     } else {
       error.innerText = 'Error: Could not fetch weather';
       loader.classList.remove("loader-visible");

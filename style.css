@@ -77,3 +77,7 @@ input.place {
   font-size: 16px;
   text-align: center;
 }
+
+.weatherGif {
+  margin-left: 37%;
+}
